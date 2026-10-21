@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDUXCEL — National Collegiate Talent & Ranking Arena</title>
+  <meta name="description" content="EduExcel connects colleges across the nation to rank themselves based on academics, sports, coding, and extracurriculars. Uplift your college to Rank #1.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Background Ambient Glow Effects -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- ========================================================
+       TOP AREA: NO TRADITIONAL TASKBAR - DYNAMIC ISLAND ONLY
+       ======================================================== -->
+  <header class="island-header-wrapper">
+    <!-- Dynamic Island Container -->
+    <div class="dynamic-island-shell" id="dynamicIsland" tabindex="0" role="region" aria-label="Dynamic Navigation Island">
+      <!-- Default Collapsed Capsule View -->
+      <div class="island-collapsed-content">
+        <div class="island-pulse-dot"></div>
+        <span class="island-badge-text">EDUXCEL</span>
+        <span class="island-live-tag">LIVE LEAGUE</span>
+        <div class="island-chevron">
+          <i data-lucide="chevron-down"></i>
+        </div>
+      </div>
+
+      <!-- Expanded Taskbar Options on Hover / Focus -->
+      <nav class="island-expanded-taskbar" aria-label="Main taskbar">
+        <div class="island-brand-mini">
+          <span class="dot-accent"></span>
+          <span class="island-title">HUB</span>
+        </div>
+        <div class="taskbar-links">
+          <!-- Blank href taskbar links as requested -->
+          <a href="#" class="taskbar-item" id="navSignIn">
+            <i data-lucide="log-in" class="item-icon"></i>
+            <span>Sign In</span>
+          </a>
+          <a href="#" class="taskbar-item" id="navKnowMore">
+            <i data-lucide="compass" class="item-icon"></i>
+            <span>Know More</span>
+          </a>
+          <a href="#" class="taskbar-item" id="navDeveloper">
+            <i data-lucide="code-2" class="item-icon"></i>
+            <span>Developer</span>
+          </a>
+        </div>
+        <div class="island-status-pill">
+          <span class="active-rank">Rank #1 Contested</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       UPPER LEFT SIDE (BELOW TASKBAR):
+       LOGO: EDUXCEL & VIDEO SPACE FOR ANIMATION LOGO
+       ======================================================== -->
+  <aside class="upper-left-brand-zone" id="brandZone">
+    <div class="brand-zone-inner">
+      <!-- EDUXCEL Logo -->
+      <div class="brand-logo-unit">
+        <div class="logo-text-row">
+          <h1 class="eduxcel-logo-text">EDUXCEL</h1>
+          <span class="logo-edition-tag">PRO</span>
+        </div>
+        <p class="brand-tagline">National Collegiate Ranking Arena</p>
+      </div>
+
+      <!-- Video Space for Animation Logo (as explicitly requested) -->
+      <div class="logo-video-space" id="logoVideoSpace" title="Animation Logo Space">
+        <div class="video-frame-glow"></div>
+        <div class="video-container">
+          <!-- 
+            USER INSTRUCTION:
+            Replace the source below with your actual animation logo video file (e.g. logo_animation.mp4)
+          -->
+          <video id="userLogoAnimation" class="logo-animation-media" autoplay loop muted playsinline poster="">
+            <!-- Default placeholder demo stream / video placeholder -->
+            <source src="" type="video/mp4" id="videoSourceTag">
+            Your browser does not support the video tag.
+          </video>
+
+          <!-- Fallback dynamic canvas logo animation shown until/alongside user video -->
+          <div class="animation-fallback-canvas" id="fallbackCanvasWrapper">
+            <canvas id="logoOrbCanvas" width="220" height="130"></canvas>
+            <div class="animation-badge-overlay">
+              <span class="pulse-indicator"></span>
+              <span class="video-label-text">YOUR ANIMATION LOGO</span>
+            </div>
+          </div>
+
+          <!-- Video Controls / File Loader helper for User -->
+          <div class="video-slot-meta">
+            <label for="videoFileInput" class="video-upload-pill" title="Click to test your video file right now">
+              <i data-lucide="upload-cloud"></i>
+              <span>Test Your Video</span>
+            </label>
+            <input type="file" id="videoFileInput" accept="video/mp4,video/webm" style="display:none;">
+            <span class="slot-hint">Upper-Left Logo Slot (16:9 / 4:3)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================
+       MAIN PAGE CONTENT
+       ======================================================== -->
+  <main class="page-container">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="league-pill-badge">
+          <span class="trophy-sparkle">🏆</span>
+          <span>THE NATION-WIDE CAMPUS CHAMPIONSHIP</span>
+          <span class="badge-dot"></span>
+          <span class="live-counter">2,480+ Colleges Active</span>
+        </div>
+
+        <h2 class="hero-headline">
+          Elevate Your College.<br>
+          <span class="gradient-text">Make It Stand on Rank #1.</span>
+        </h2>
+
+        <p class="hero-description">
+          <strong>EduExcel</strong> connects collegiate institutions across the country in an unprecedented merit-driven arena. 
+          Your academic triumphs, coding breakthroughs, athletic golds, and creative victories don't just stay on your resume—they 
+          powerfully push your alma mater to the pinnacle of the national leaderboard.
+        </p>
+
+        <!-- Call to Action Buttons -->
+        <div class="hero-actions">
+          <a href="#leaderboard" class="btn-primary">
+            <span>Explore National Rankings</span>
+            <i data-lucide="arrow-right"></i>
+          </a>
+          <a href="#boostSimulator" class="btn-secondary">
+            <i data-lucide="zap"></i>
+            <span>Simulate Talent Boost</span>
+          </a>
+        </div>
+
+        <!-- Quick Metrics Counter Ribbon -->
+        <div class="metrics-ribbon">
+          <div class="metric-card">
+            <div class="metric-value">4.8M+</div>
+            <div class="metric-label">Talent Points Scored</div>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-card">
+            <div class="metric-value">1,420+</div>
+            <div class="metric-label">Universities Ranked</div>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-card">
+            <div class="metric-value">4</div>
+            <div class="metric-label">Dominant Arenas</div>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric-card">
+            <div class="metric-value">Daily #1</div>
+            <div class="metric-label">Live Dynamic Re-ranking</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CRITERIA / FOUR PILLARS SECTION -->
+    <section class="criteria-section" id="criteria">
+      <div class="section-header">
+        <span class="section-eyebrow">RANKING ARCHITECTURE</span>
+        <h3 class="section-title">The Four Arenas of Collegiate Supremacy</h3>
+        <p class="section-subtitle">
+          Rankings aren't decided by legacy or subjective surveys. EduExcel measures raw, verified student impact across every sphere of excellence.
+        </p>
+      </div>
+
+      <div class="criteria-grid">
+        <!-- Criteria Card 1: Coding -->
+        <div class="criteria-card card-coding" data-arena="coding">
+          <div class="card-glow"></div>
+          <div class="card-icon-bubble">
+            <i data-lucide="terminal"></i>
+          </div>
+          <div class="arena-tag">Technology & Tech</div>
+          <h4 class="card-title">Coding & Development</h4>
+          <p class="card-desc">
+            National hackathons, ICPC world finalists, open-source repositories, algorithms, and real-world tech deployments built by campus developers.
+          </p>
+          <ul class="criteria-features">
+            <li><i data-lucide="check-circle-2"></i> Hackathon Victories & Medals</li>
+            <li><i data-lucide="check-circle-2"></i> Algorithmic LeetCode/Codeforces Elo</li>
+            <li><i data-lucide="check-circle-2"></i> Open Source Github Stars</li>
+          </ul>
+          <div class="card-footer-metric">
+            <span>Points Multiplier:</span>
+            <strong>1.5x Boost</strong>
+          </div>
+        </div>
+
+        <!-- Criteria Card 2: Sports -->
+        <div class="criteria-card card-sports" data-arena="sports">
+          <div class="card-glow"></div>
+          <div class="card-icon-bubble">
+            <i data-lucide="trophy"></i>
+          </div>
+          <div class="arena-tag">Athletics & Grit</div>
+          <h4 class="card-title">Sports & Athletics</h4>
+          <p class="card-desc">
+            Inter-university championships, national track & field golds, football leagues, cricket circuits, and collegiate esports tournaments.
+          </p>
+          <ul class="criteria-features">
+            <li><i data-lucide="check-circle-2"></i> Inter-Collegiate Gold & Silver Medals</li>
+            <li><i data-lucide="check-circle-2"></i> State & National Athletic Caps</li>
+            <li><i data-lucide="check-circle-2"></i> Collegiate Esports Championship Trophies</li>
+          </ul>
+          <div class="card-footer-metric">
+            <span>Points Multiplier:</span>
+            <strong>1.4x Boost</strong>
+          </div>
+        </div>
+
+        <!-- Criteria Card 3: Academics -->
+        <div class="criteria-card card-academics" data-arena="academics">
+          <div class="card-glow"></div>
+          <div class="card-icon-bubble">
+            <i data-lucide="graduation-cap"></i>
+          </div>
+          <div class="arena-tag">Scholarly Rigor</div>
+          <h4 class="card-title">Academics & Research</h4>
+          <p class="card-desc">
+            Peer-reviewed research publications, patents filed by student labs, national Olympiads, GRE/GATE top percentiles, and academic honors.
+          </p>
+          <ul class="criteria-features">
+            <li><i data-lucide="check-circle-2"></i> IEEE / Springer Publications</li>
+            <li><i data-lucide="check-circle-2"></i> Patents & Novel Inventions</li>
+            <li><i data-lucide="check-circle-2"></i> National Fellowship Awards</li>
+          </ul>
+          <div class="card-footer-metric">
+            <span>Points Multiplier:</span>
+            <strong>1.6x Boost</strong>
+          </div>
+        </div>
+
+        <!-- Criteria Card 4: Extracurriculars -->
+        <div class="criteria-card card-extra" data-arena="extra">
+          <div class="card-glow"></div>
+          <div class="card-icon-bubble">
+            <i data-lucide="sparkles"></i>
+          </div>
+          <div class="arena-tag">Culture & Impact</div>
+          <h4 class="card-title">Extracurriculars & Arts</h4>
+          <p class="card-desc">
+            Model UN debates, cultural festival grand champions, performing arts laurels, student-led NGOs, and high-impact social initiatives.
+          </p>
+          <ul class="criteria-features">
+            <li><i data-lucide="check-circle-2"></i> Parliamentary Debate Championships</li>
+            <li><i data-lucide="check-circle-2"></i> National Cultural Fest Laurels</li>
+            <li><i data-lucide="check-circle-2"></i> Grassroots Social Impact Milestones</li>
+          </ul>
+          <div class="card-footer-metric">
+            <span>Points Multiplier:</span>
+            <strong>1.3x Boost</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE NATIONAL LEADERBOARD PREVIEW -->
+    <section class="leaderboard-section" id="leaderboard">
+      <div class="leaderboard-head-container">
+        <div>
+          <span class="section-eyebrow">NATIONAL ARENA STANDINGS</span>
+          <h3 class="section-title">Live Collegiate Leaderboard</h3>
+          <p class="section-subtitle">Real-time point updates as students across India submit and verify achievements.</p>
+        </div>
+
+        <!-- Filter Pills -->
+        <div class="category-filter-bar" id="categoryFilterBar">
+          <button class="filter-pill active" data-cat="all">All Arenas</button>
+          <button class="filter-pill" data-cat="coding"><i data-lucide="code"></i> Coding</button>
+          <button class="filter-pill" data-cat="sports"><i data-lucide="trophy"></i> Sports</button>
+          <button class="filter-pill" data-cat="academics"><i data-lucide="book-open"></i> Academics</button>
+          <button class="filter-pill" data-cat="extra"><i data-lucide="sparkles"></i> Extracurriculars</button>
+        </div>
+      </div>
+
+      <!-- Search College Bar -->
+      <div class="leaderboard-search-box">
+        <i data-lucide="search" class="search-icon"></i>
+        <input type="text" id="collegeSearchInput" placeholder="Search your college name or city (e.g. IIT, BITS, NIT, Delhi University)...">
+        <span class="search-badge" id="collegeMatchCount">Showing 8 Top Colleges</span>
+      </div>
+
+      <!-- Leaderboard Table Container -->
+      <div class="leaderboard-wrapper">
+        <table class="leaderboard-table" id="leaderboardTable">
+          <thead>
+            <tr>
+              <th class="col-rank">Rank</th>
+              <th class="col-college">College / Institute</th>
+              <th class="col-dominant">Dominant Arena</th>
+              <th class="col-momentum">Momentum</th>
+              <th class="col-contributors">Active Students</th>
+              <th class="col-score">EduExcel Score</th>
+              <th class="col-action">Action</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody">
+            <!-- Populated via JavaScript dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE "BOOST YOUR COLLEGE" TALENT SIMULATOR -->
+    <section class="simulator-section" id="boostSimulator">
+      <div class="simulator-card-box">
+        <div class="sim-left-panel">
+          <div class="sim-tag">
+            <i data-lucide="flame"></i>
+            <span>INTERACTIVE SIMULATOR</span>
+          </div>
+          <h3 class="sim-title">Test How Your Talent Lifts Your College to #1</h3>
+          <p class="sim-desc">
+            Select your college, choose an achievement you've unlocked, and witness your institution surge up the national table in real time!
+          </p>
+
+          <div class="sim-form">
+            <div class="form-group">
+              <label for="simCollegeSelect">Target College:</label>
+              <select id="simCollegeSelect" class="sim-input">
+                <option value="Bennett University">Bennett University — Greater Noida</option>
+                <option value="BITS Pilani">BITS Pilani — Pilani Campus</option>
+                <option value="NIT Trichy">NIT Trichy — Tiruchirappalli</option>
+                <option value="Delhi University">Delhi University (SRCC / Hansraj) — New Delhi</option>
+                <option value="IIT Delhi">IIT Delhi — New Delhi</option>
+                <option value="IIIT Hyderabad">IIIT Hyderabad — Gachibowli</option>
+                <option value="VIT Vellore">VIT Vellore — Tamil Nadu</option>
+                <option value="Manipal Tech">MIT Manipal — Karnataka</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="simCategorySelect">Your Field of Talent:</label>
+              <select id="simCategorySelect" class="sim-input">
+                <option value="coding">💻 Coding — National Hackathon Grand Winner (+650 pts)</option>
+                <option value="sports">🏅 Sports — Inter-State Athletic Gold (+520 pts)</option>
+                <option value="academics">📚 Academics — Published IEEE Research Paper (+480 pts)</option>
+                <option value="extra">🎭 Extracurriculars — National Debate Championship (+410 pts)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="simStudentName">Your Name / Handle:</label>
+              <input type="text" id="simStudentName" class="sim-input" value="Alex V. (Lead Coder)" placeholder="e.g. Alex V.">
+            </div>
+
+            <button type="button" class="btn-boost" id="btnBoostCampus">
+              <i data-lucide="rocket"></i>
+              <span>Push Points & Boost Rank</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="sim-right-panel">
+          <div class="sim-live-meter-card">
+            <div class="meter-header">
+              <span class="live-dot-pulse"></span>
+              <span class="meter-title">CAMPUS VAULT REAL-TIME TELEMETRY</span>
+            </div>
+            
+            <div class="featured-college-display">
+              <div class="badge-rank-large" id="simCurrentRank">#2</div>
+              <div>
+                <h4 class="featured-college-name" id="simDisplayCollege">BITS Pilani</h4>
+                <p class="featured-college-sub" id="simDisplayCategory">Dominant Arena: Coding & Tech</p>
+              </div>
+            </div>
+
+            <div class="score-progress-unit">
+              <div class="score-label-row">
+                <span>Current Total Score</span>
+                <span class="numeric-score" id="simDisplayScore">94,820 pts</span>
+              </div>
+              <div class="score-bar-track">
+                <div class="score-bar-fill" id="simScoreBar" style="width: 86%;"></div>
+              </div>
+              <div class="target-diff" id="simGapText">450 pts needed to overtake Rank #1</div>
+            </div>
+
+            <div class="sim-feed-box" id="simLogFeed">
+              <div class="feed-entry">
+                <i data-lucide="check" class="feed-check"></i>
+                <span>System ready. Choose an achievement on the left to inject campus points.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section class="how-it-works-section" id="howItWorks">
+      <div class="section-header">
+        <span class="section-eyebrow">SIMPLE 4-STEP PROTOCOL</span>
+        <h3 class="section-title">How EduExcel Empowers You & Your College</h3>
+        <p class="section-subtitle">
+          Every student is an ambassador. Your individual dedication aggregates into institutional supremacy.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-icon"><i data-lucide="user-check"></i></div>
+          <h4 class="step-title">Claim Your College</h4>
+          <p class="step-desc">
+            Verify with your official student email or university credentials to connect directly to your college's national roster.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-icon"><i data-lucide="award"></i></div>
+          <h4 class="step-title">Log Your Talents</h4>
+          <p class="step-desc">
+            Submit your hackathon certificates, athletic medals, published manuscripts, or debate laurels with verifiable proof.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-icon"><i data-lucide="shield-check"></i></div>
+          <h4 class="step-title">Consensus Verification</h4>
+          <p class="step-desc">
+            Student council reps and peer committees validate every entry with zero fake points, safeguarding institutional integrity.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-icon"><i data-lucide="crown"></i></div>
+          <h4 class="step-title">Rise to Rank #1</h4>
+          <p class="step-desc">
+            Watch the dynamic national leaderboard recalibrate. Celebrate as your institute claims the coveted top collegiate spot.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE STUDENT MVP SPOTLIGHT TICKER -->
+    <section class="mvp-ticker-section">
+      <div class="ticker-header-bar">
+        <span class="pulse-beacon"></span>
+        <span class="ticker-title">RECENT VERIFIED STUDENT ACHIEVEMENTS NATIONWIDE</span>
+      </div>
+      <div class="ticker-marquee-wrapper">
+        <div class="ticker-track" id="tickerTrack">
+          <div class="ticker-item"><span class="t-badge t-code">CODING</span> Rohan K. won HackIndia 2026 <strong>(+600 pts for IIT Bombay)</strong></div>
+          <div class="ticker-item"><span class="t-badge t-sport">SPORTS</span> Aditi M. won Gold at Inter-Varsity Tennis <strong>(+520 pts for BITS Pilani)</strong></div>
+          <div class="ticker-item"><span class="t-badge t-acad">ACADEMICS</span> Divyansh P. published IEEE Paper on Quantum Computing <strong>(+480 pts for IIIT Hyderabad)</strong></div>
+          <div class="ticker-item"><span class="t-badge t-extra">ARTS</span> Priya S. Champion at National Youth Parliament <strong>(+430 pts for Delhi University)</strong></div>
+          <div class="ticker-item"><span class="t-badge t-code">CODING</span> Team CodeKratos reached ICPC World Finals <strong>(+800 pts for NIT Trichy)</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CALL TO ACTION -->
+    <section class="final-cta-section">
+      <div class="cta-glow-circle"></div>
+      <h3 class="cta-heading">Does Your College Deserve To Be #1 in the Country?</h3>
+      <p class="cta-text">
+        Stop waiting for outdated bureaucratic rankings. Take your campus reputation into your own hands. 
+        Your talent is the catalyst.
+      </p>
+      <div class="cta-btn-group">
+        <a href="#" class="btn-primary" onclick="alert('EduExcel collegiate sign-up portal ready! Connect your official campus ID.'); return false;">
+          <span>Register Your College Chapter</span>
+          <i data-lucide="sparkle"></i>
+        </a>
+        <a href="#dynamicIsland" class="btn-secondary">
+          <span>Explore Dynamic Island Hub</span>
+          <i data-lucide="arrow-up"></i>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       FOOTER
+       ======================================================== -->
+  <footer class="eduxcel-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">EDUXCEL</div>
+        <p class="footer-desc">
+          Connecting universities across the country through verified student skill, athletic grit, and scholastic leadership.
+        </p>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="#">Sign In</a></li>
+            <li><a href="#">Know More</a></li>
+            <li><a href="#">Developer</a></li>
+            <li><a href="#leaderboard">National Leaderboard</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Arenas</h5>
+          <ul>
+            <li><a href="#criteria">Coding & Tech</a></li>
+            <li><a href="#criteria">Sports & Athletics</a></li>
+            <li><a href="#criteria">Academics & Research</a></li>
+            <li><a href="#criteria">Extracurriculars</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Integrity</h5>
+          <ul>
+            <li><a href="#">Verification Protocol</a></li>
+            <li><a href="#">Anti-Spoof Scoring</a></li>
+            <li><a href="#">Campus Ambassadors</a></li>
+            <li><a href="#">Leaderboard Governance</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 EDUXCEL. Built to elevate student ambition nationwide.</p>
+      <div class="footer-system-status">
+        <span class="status-indicator"></span>
+        <span>Dynamic Island Active • All Systems Operational</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Notification Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- JavaScript Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
