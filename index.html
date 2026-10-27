@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Suppress Referer header to allow cross-origin media streaming from Twitter / X CDN on GitHub Pages -->
+  <meta name="referrer" content="no-referrer">
   <title>EDUXCEL — National Collegiate Talent & Ranking Arena</title>
   <meta name="description" content="EduExcel connects colleges across the nation to rank themselves based on academics, sports, coding, and extracurriculars. Uplift your college to Rank #1.">
   
@@ -106,8 +108,9 @@
         <div class="video-frame-glow"></div>
         <div class="video-container" id="videoContainer">
           <!-- Streams video directly from Twitter / X CDN without requiring high local file storage -->
-          <video id="userLogoAnimation" class="logo-animation-media active" autoplay loop muted playsinline preload="metadata" poster="https://pbs.twimg.com/amplify_video_thumb/2103211525095702528/img/9hhkZEeK88qwJlMk.jpg">
+          <video id="userLogoAnimation" class="logo-animation-media active" autoplay loop muted playsinline preload="metadata" referrerpolicy="no-referrer" poster="https://pbs.twimg.com/amplify_video_thumb/2103211525095702528/img/9hhkZEeK88qwJlMk.jpg">
             <source src="https://video.twimg.com/amplify_video/2103211525095702528/vid/avc1/1280x720/R8bU-HIf7M7HTEpB.mp4?tag=29" type="video/mp4">
+            <source src="https://video.twimg.com/amplify_video/2103211525095702528/vid/avc1/640x360/m06nkIbHPBcltl98.mp4?tag=29" type="video/mp4">
             <source src="https://video.twimg.com/amplify_video/2103211525095702528/vid/avc1/1920x1080/q0KsmKcmecu8019Y.mp4?tag=29" type="video/mp4">
             <source src="TWMate.com-a3d9a573988513af7ef808a2700ee2aa.mp4" type="video/mp4">
             Your browser does not support the video tag.
