@@ -101,21 +101,31 @@
         <p class="brand-tagline">National Collegiate Ranking Arena</p>
       </div>
 
-      <!-- Video Space for Animation Logo (Attached ONLY specified video, with fullscreen & default muted) -->
+      <!-- Video Space for Animation Logo (Streaming directly from Twitter / X CDN) -->
       <div class="logo-video-space" id="logoVideoSpace" title="Animation Logo Video">
         <div class="video-frame-glow"></div>
         <div class="video-container" id="videoContainer">
-          <video id="userLogoAnimation" class="logo-animation-media active" autoplay loop muted playsinline preload="auto">
+          <!-- Streams video directly from Twitter / X CDN without requiring high local file storage -->
+          <video id="userLogoAnimation" class="logo-animation-media active" autoplay loop muted playsinline preload="metadata" poster="https://pbs.twimg.com/amplify_video_thumb/2103211525095702528/img/9hhkZEeK88qwJlMk.jpg">
+            <source src="https://video.twimg.com/amplify_video/2103211525095702528/vid/avc1/1280x720/R8bU-HIf7M7HTEpB.mp4?tag=29" type="video/mp4">
+            <source src="https://video.twimg.com/amplify_video/2103211525095702528/vid/avc1/1920x1080/q0KsmKcmecu8019Y.mp4?tag=29" type="video/mp4">
             <source src="TWMate.com-a3d9a573988513af7ef808a2700ee2aa.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
 
-          <!-- Top-Right Video Control Overlay (Mute Toggle & Fullscreen) -->
+          <!-- Top-Right Video Control Overlay (Fullscreen only on hover) -->
           <div class="video-overlay-controls">
             <button type="button" class="video-control-pill" id="btnVideoFullscreen" title="View Full Screen" aria-label="Fullscreen">
               <i data-lucide="maximize" id="videoFullscreenIcon"></i>
             </button>
           </div>
+        </div>
+
+        <!-- Twitter / X Source Embed (Tweet text hidden so only video is played) -->
+        <div class="twitter-embed-wrapper" style="display:none;" aria-hidden="true">
+          <blockquote class="twitter-tweet"><p lang="en" dir="ltr">holy shit
+i asked claude to make a video on western civiization <a href="https://t.co/8hKEVR1Djs">https://t.co/8hKEVR1Djs</a></p>&mdash; vittorio (@IterIntellectus) <a href="https://x.com/IterIntellectus/status/2103212539895017864?ref_src=twsrc%5Etfw">September 24, 2026</a></blockquote>
+          <script async src="https://platform.x.com/widgets.js" charset="utf-8"></script>
         </div>
       </div>
     </div>
