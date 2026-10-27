@@ -66,6 +66,24 @@
         </div>
       </nav>
     </div>
+
+    <!-- Ambient Music Button beside Dynamic Island -->
+    <div class="island-music-widget" id="islandMusicWidget">
+      <button class="music-toggle-btn" id="musicToggleBtn" type="button" aria-label="Play ambient lo-fi music" title="Click to play/pause ambient music">
+        <div class="soundwave-anim" id="soundwaveAnim">
+          <span class="sound-bar bar-1"></span>
+          <span class="sound-bar bar-2"></span>
+          <span class="sound-bar bar-3"></span>
+          <span class="sound-bar bar-4"></span>
+        </div>
+        <i data-lucide="music" class="music-icon" id="musicIcon"></i>
+        <span class="music-label" id="musicLabel">Ambient Lo-Fi</span>
+      </button>
+      <audio id="ambientAudio" loop preload="auto">
+        <source src="atlasaudio-ambient-lofi-576613.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
   </header>
 
   <!-- ========================================================
@@ -83,37 +101,20 @@
         <p class="brand-tagline">National Collegiate Ranking Arena</p>
       </div>
 
-      <!-- Video Space for Animation Logo (as explicitly requested) -->
-      <div class="logo-video-space" id="logoVideoSpace" title="Animation Logo Space">
+      <!-- Video Space for Animation Logo (Attached ONLY specified video, with fullscreen & default muted) -->
+      <div class="logo-video-space" id="logoVideoSpace" title="Animation Logo Video">
         <div class="video-frame-glow"></div>
-        <div class="video-container">
-          <!-- 
-            USER INSTRUCTION:
-            Replace the source below with your actual animation logo video file (e.g. logo_animation.mp4)
-          -->
-          <video id="userLogoAnimation" class="logo-animation-media" autoplay loop muted playsinline poster="">
-            <!-- Default placeholder demo stream / video placeholder -->
-            <source src="" type="video/mp4" id="videoSourceTag">
+        <div class="video-container" id="videoContainer">
+          <video id="userLogoAnimation" class="logo-animation-media active" autoplay loop muted playsinline preload="auto">
+            <source src="TWMate.com-a3d9a573988513af7ef808a2700ee2aa.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
 
-          <!-- Fallback dynamic canvas logo animation shown until/alongside user video -->
-          <div class="animation-fallback-canvas" id="fallbackCanvasWrapper">
-            <canvas id="logoOrbCanvas" width="220" height="130"></canvas>
-            <div class="animation-badge-overlay">
-              <span class="pulse-indicator"></span>
-              <span class="video-label-text">YOUR ANIMATION LOGO</span>
-            </div>
-          </div>
-
-          <!-- Video Controls / File Loader helper for User -->
-          <div class="video-slot-meta">
-            <label for="videoFileInput" class="video-upload-pill" title="Click to test your video file right now">
-              <i data-lucide="upload-cloud"></i>
-              <span>Test Your Video</span>
-            </label>
-            <input type="file" id="videoFileInput" accept="video/mp4,video/webm" style="display:none;">
-            <span class="slot-hint">Upper-Left Logo Slot (16:9 / 4:3)</span>
+          <!-- Top-Right Video Control Overlay (Mute Toggle & Fullscreen) -->
+          <div class="video-overlay-controls">
+            <button type="button" class="video-control-pill" id="btnVideoFullscreen" title="View Full Screen" aria-label="Fullscreen">
+              <i data-lucide="maximize" id="videoFullscreenIcon"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -348,7 +349,8 @@
             <div class="form-group">
               <label for="simCollegeSelect">Target College:</label>
               <select id="simCollegeSelect" class="sim-input">
-                <option value="Bennett University">Bennett University — Greater Noida</option>
+                <option value="Bennett University" selected>Bennett University — Greater Noida (Rank #1)</option>
+                <option value="IIT Bombay">IIT Bombay — Mumbai</option>
                 <option value="BITS Pilani">BITS Pilani — Pilani Campus</option>
                 <option value="NIT Trichy">NIT Trichy — Tiruchirappalli</option>
                 <option value="Delhi University">Delhi University (SRCC / Hansraj) — New Delhi</option>
@@ -389,9 +391,9 @@
             </div>
             
             <div class="featured-college-display">
-              <div class="badge-rank-large" id="simCurrentRank">#2</div>
+              <div class="badge-rank-large" id="simCurrentRank">#1</div>
               <div>
-                <h4 class="featured-college-name" id="simDisplayCollege">BITS Pilani</h4>
+                <h4 class="featured-college-name" id="simDisplayCollege">Bennett University</h4>
                 <p class="featured-college-sub" id="simDisplayCategory">Dominant Arena: Coding & Tech</p>
               </div>
             </div>
@@ -399,12 +401,12 @@
             <div class="score-progress-unit">
               <div class="score-label-row">
                 <span>Current Total Score</span>
-                <span class="numeric-score" id="simDisplayScore">94,820 pts</span>
+                <span class="numeric-score" id="simDisplayScore">106,450 pts</span>
               </div>
               <div class="score-bar-track">
-                <div class="score-bar-fill" id="simScoreBar" style="width: 86%;"></div>
+                <div class="score-bar-fill" id="simScoreBar" style="width: 98%;"></div>
               </div>
-              <div class="target-diff" id="simGapText">450 pts needed to overtake Rank #1</div>
+              <div class="target-diff" id="simGapText">👑 Currently holding Rank #1 national title! (+8,000 pts lead)</div>
             </div>
 
             <div class="sim-feed-box" id="simLogFeed">
@@ -475,6 +477,7 @@
       </div>
       <div class="ticker-marquee-wrapper">
         <div class="ticker-track" id="tickerTrack">
+          <div class="ticker-item"><span class="t-badge t-code">CODING</span> Bennett University Hackathon Team Won National Smart India Finale <strong>(+850 pts • Rank #1 Secured)</strong></div>
           <div class="ticker-item"><span class="t-badge t-code">CODING</span> Rohan K. won HackIndia 2026 <strong>(+600 pts for IIT Bombay)</strong></div>
           <div class="ticker-item"><span class="t-badge t-sport">SPORTS</span> Aditi M. won Gold at Inter-Varsity Tennis <strong>(+520 pts for BITS Pilani)</strong></div>
           <div class="ticker-item"><span class="t-badge t-acad">ACADEMICS</span> Divyansh P. published IEEE Paper on Quantum Computing <strong>(+480 pts for IIIT Hyderabad)</strong></div>

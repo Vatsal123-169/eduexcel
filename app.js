@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   initDynamicIsland();
-  initLogoAnimationCanvas();
-  initVideoUploadSlot();
+  initVideoPlayer();
+  initAmbientMusic();
   initLeaderboard();
   initSimulator();
 });
@@ -50,108 +50,116 @@ function initDynamicIsland() {
 }
 
 /* ==========================================================================
-   2. LOGO ANIMATION CANVAS (FALLBACK & LIVE GRAPHICS)
+   2. VIDEO PLAYER WITH FULLSCREEN & DEFAULT MUTE
    ========================================================================== */
-function initLogoAnimationCanvas() {
-  const canvas = document.getElementById('logoOrbCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+function initVideoPlayer() {
+  const video = document.getElementById('userLogoAnimation');
+  const btnFullscreen = document.getElementById('btnVideoFullscreen');
 
-  let animationFrameId;
-  let angle = 0;
+  if (!video) return;
 
-  function resizeCanvas() {
-    canvas.width = canvas.parentElement.clientWidth || 240;
-    canvas.height = canvas.parentElement.clientHeight || 138;
+  // Ensure video is muted by default as requested
+  video.muted = true;
+  video.defaultMuted = true;
+
+  // Trigger autoplay (browsers permit muted autoplay)
+  video.play().catch(err => {
+    console.log('Video autoplay initiated with user gesture policy:', err);
+  });
+
+  // Fullscreen option handler
+  if (btnFullscreen) {
+    btnFullscreen.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleVideoFullscreen(video);
+    });
   }
 
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
+  // Also support double-click on the video to trigger fullscreen
+  video.addEventListener('dblclick', () => {
+    toggleVideoFullscreen(video);
+  });
 
-  function draw() {
-    const w = canvas.width;
-    const h = canvas.height;
-    const cx = w / 2;
-    const cy = h / 2 - 4;
+  // Synchronize fullscreen icon state
+  const fullscreenChangeHandler = () => {
+    const isFullscreen = document.fullscreenElement === video || 
+                         document.webkitFullscreenElement === video;
+    const icon = document.getElementById('videoFullscreenIcon');
+    if (icon) {
+      if (isFullscreen) {
+        icon.setAttribute('data-lucide', 'minimize');
+      } else {
+        icon.setAttribute('data-lucide', 'maximize');
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+  };
 
-    ctx.clearRect(0, 0, w, h);
+  document.addEventListener('fullscreenchange', fullscreenChangeHandler);
+  document.addEventListener('webkitfullscreenchange', fullscreenChangeHandler);
+}
 
-    // Warm ivory & champagne subtle aura
-    const grad = ctx.createRadialGradient(cx, cy, 5, cx, cy, 75);
-    grad.addColorStop(0, 'rgba(254, 243, 199, 0.6)');
-    grad.addColorStop(0.5, 'rgba(245, 239, 230, 0.3)');
-    grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, w, h);
-
-    angle += 0.025;
-
-    // Draw rotating orbital rings
-    ctx.save();
-    ctx.translate(cx, cy);
-
-    // Ring 1 (Royal Indigo)
-    ctx.beginPath();
-    ctx.ellipse(0, 0, 48, 22, angle, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(79, 70, 229, 0.75)';
-    ctx.lineWidth = 1.8;
-    ctx.stroke();
-
-    // Ring 2 (Warm Amber Gold)
-    ctx.beginPath();
-    ctx.ellipse(0, 0, 52, 24, -angle * 1.2, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(217, 119, 6, 0.75)';
-    ctx.lineWidth = 1.4;
-    ctx.stroke();
-
-    // Central core glowing orb
-    ctx.beginPath();
-    ctx.arc(0, 0, 10 + Math.sin(angle * 3) * 2, 0, Math.PI * 2);
-    ctx.fillStyle = '#4f46e5';
-    ctx.shadowColor = '#d97706';
-    ctx.shadowBlur = 14;
-    ctx.fill();
-
-    // Floating satellite node
-    const satX = Math.cos(angle * 2) * 44;
-    const satY = Math.sin(angle * 2) * 20;
-    ctx.beginPath();
-    ctx.arc(satX, satY, 3.5, 0, Math.PI * 2);
-    ctx.fillStyle = '#d97706';
-    ctx.shadowColor = '#d97706';
-    ctx.shadowBlur = 8;
-    ctx.fill();
-
-    ctx.restore();
-
-    animationFrameId = requestAnimationFrame(draw);
+function toggleVideoFullscreen(element) {
+  if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+    if (element.requestFullscreen) {
+      element.requestFullscreen().catch(err => {
+        showToast('Fullscreen mode was blocked by browser permissions.', 'info');
+      });
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
   }
-
-  draw();
 }
 
 /* ==========================================================================
-   3. VIDEO UPLOAD & MEDIA SLOT CONTROLS
+   3. AMBIENT MUSIC PLAYER (BESIDE DYNAMIC ISLAND)
    ========================================================================== */
-function initVideoUploadSlot() {
-  const fileInput = document.getElementById('videoFileInput');
-  const video = document.getElementById('userLogoAnimation');
-  const fallback = document.getElementById('fallbackCanvasWrapper');
+function initAmbientMusic() {
+  const musicBtn = document.getElementById('musicToggleBtn');
+  const audio = document.getElementById('ambientAudio');
+  const musicLabel = document.getElementById('musicLabel');
 
-  if (!fileInput || !video) return;
+  if (!musicBtn || !audio) return;
 
-  fileInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const videoURL = URL.createObjectURL(file);
-      video.src = videoURL;
-      video.classList.add('active');
-      if (fallback) fallback.style.display = 'none';
-      video.play().catch(err => {
-        console.warn('Autoplay prevented:', err);
+  // Set comfortable default volume
+  audio.volume = 0.65;
+
+  musicBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().then(() => {
+        musicBtn.classList.add('playing');
+        if (musicLabel) musicLabel.textContent = 'Playing Lo-Fi';
+        showToast('🎵 <strong>Ambient Music</strong>: Playing lo-fi background audio.', 'success');
+      }).catch(err => {
+        console.warn('Audio play request error:', err);
+        showToast('Click anywhere on the page to permit audio playback.', 'info');
       });
-      showToast(`🎬 Animation logo loaded: <strong>${file.name}</strong>`, 'success');
+    } else {
+      audio.pause();
+      musicBtn.classList.remove('playing');
+      if (musicLabel) musicLabel.textContent = 'Ambient Lo-Fi';
+      showToast('⏸️ <strong>Ambient Music</strong>: Audio paused.', 'info');
     }
+  });
+
+  // When audio ends (if loop fails for any reason), reset button state
+  audio.addEventListener('pause', () => {
+    musicBtn.classList.remove('playing');
+    if (musicLabel) musicLabel.textContent = 'Ambient Lo-Fi';
+  });
+
+  audio.addEventListener('play', () => {
+    musicBtn.classList.add('playing');
+    if (musicLabel) musicLabel.textContent = 'Playing Lo-Fi';
   });
 }
 
@@ -161,6 +169,17 @@ function initVideoUploadSlot() {
 const COLLEGES_DATA = [
   {
     id: 1,
+    name: 'Bennett University',
+    city: 'Greater Noida, Uttar Pradesh',
+    dominantArena: 'Coding & Tech',
+    arenaCategory: 'coding',
+    momentum: '👑 National Champion #1',
+    contributors: '4,280 Active',
+    score: 106450,
+    crest: 'BU'
+  },
+  {
+    id: 2,
     name: 'IIT Bombay',
     city: 'Powai, Mumbai',
     dominantArena: 'Coding & Tech',
@@ -171,7 +190,7 @@ const COLLEGES_DATA = [
     crest: 'IITB'
   },
   {
-    id: 2,
+    id: 3,
     name: 'BITS Pilani',
     city: 'Pilani, Rajasthan',
     dominantArena: 'Coding & Tech',
@@ -182,7 +201,7 @@ const COLLEGES_DATA = [
     crest: 'BITS'
   },
   {
-    id: 3,
+    id: 4,
     name: 'NIT Trichy',
     city: 'Tiruchirappalli, TN',
     dominantArena: 'Sports & Athletics',
@@ -193,7 +212,7 @@ const COLLEGES_DATA = [
     crest: 'NITT'
   },
   {
-    id: 4,
+    id: 5,
     name: 'Delhi University (SRCC/Hansraj)',
     city: 'New Delhi',
     dominantArena: 'Extracurriculars & Arts',
@@ -204,7 +223,7 @@ const COLLEGES_DATA = [
     crest: 'DU'
   },
   {
-    id: 5,
+    id: 6,
     name: 'IIT Delhi',
     city: 'Hauz Khas, New Delhi',
     dominantArena: 'Academics & Research',
@@ -215,7 +234,7 @@ const COLLEGES_DATA = [
     crest: 'IITD'
   },
   {
-    id: 6,
+    id: 7,
     name: 'IIIT Hyderabad',
     city: 'Gachibowli, Telangana',
     dominantArena: 'Coding & Tech',
@@ -226,7 +245,7 @@ const COLLEGES_DATA = [
     crest: 'IIITH'
   },
   {
-    id: 7,
+    id: 8,
     name: 'VIT Vellore',
     city: 'Vellore, Tamil Nadu',
     dominantArena: 'Sports & Athletics',
@@ -237,7 +256,7 @@ const COLLEGES_DATA = [
     crest: 'VIT'
   },
   {
-    id: 8,
+    id: 9,
     name: 'MIT Manipal',
     city: 'Manipal, Karnataka',
     dominantArena: 'Extracurriculars & Arts',
