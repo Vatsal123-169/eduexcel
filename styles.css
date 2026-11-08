@@ -1950,30 +1950,99 @@ body {
 /* 3. Small Tablet / Mobile Breakpoint */
 @media (max-width: 768px) {
   .island-header-wrapper {
-    padding: 0 10px;
-    gap: 8px;
+    position: fixed;
+    top: 14px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 14px;
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  /* Ambient music button on the complete left side */
+  .island-music-widget {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1002;
+    pointer-events: auto;
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Fade out ambient music button cleanly when dynamic island expands to avoid overlap */
+  .dynamic-island-shell.expanded ~ .island-music-widget,
+  .dynamic-island-shell:hover ~ .island-music-widget,
+  .dynamic-island-shell:focus-within ~ .island-music-widget {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%) scale(0.85);
   }
 
   .music-toggle-btn {
-    padding: 0 12px;
+    height: 38px;
+    padding: 0 10px;
+    gap: 6px;
+    border-radius: 9999px;
   }
 
   .music-label {
-    display: none;
+    display: none !important;
   }
 
+  /* Recenter Dynamic Island in the middle */
   .dynamic-island-shell {
     width: 210px;
+    margin: 0 auto;
+    pointer-events: auto;
   }
 
   .dynamic-island-shell:hover,
   .dynamic-island-shell:focus-within,
   .dynamic-island-shell.expanded {
-    width: 86vw;
+    width: min(480px, calc(100vw - 28px));
   }
 
   .taskbar-item span {
     font-size: 0.8rem;
+  }
+
+  /* Video frame matches video aspect ratio without cropping */
+  .logo-video-space {
+    width: 100%;
+    max-width: min(340px, 92vw);
+    height: auto;
+    aspect-ratio: var(--video-aspect-ratio, 16 / 9);
+    margin: 0 auto;
+    background: #0b0f19;
+  }
+
+  .logo-video-space .video-container {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: inherit;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-video-space .logo-animation-media {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    inset: 0;
+  }
+
+  .logo-video-space .video-overlay-controls {
+    opacity: 0.95;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .metrics-ribbon {
@@ -1996,18 +2065,37 @@ body {
 /* 4. Compact Mobile Phones (iPhone, Pixel, Galaxy Portrait) */
 @media (max-width: 600px) {
   .island-header-wrapper {
-    padding: 0 8px;
-    gap: 6px;
-  }
-
-  .dynamic-island-shell {
-    width: 180px;
-    height: 40px;
+    top: 12px;
     padding: 0 10px;
   }
 
+  /* Ambient music button on complete left side */
+  .island-music-widget {
+    left: 10px;
+  }
+
+  .music-toggle-btn {
+    height: 38px;
+    width: 38px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .soundwave-anim {
+    display: none !important;
+  }
+
+  /* Recenter dynamic island in the middle */
+  .dynamic-island-shell {
+    width: 175px;
+    height: 40px;
+    padding: 0 10px;
+    margin: 0 auto;
+  }
+
   .island-badge-text {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
   }
 
   .island-live-tag {
@@ -2015,16 +2103,11 @@ body {
     padding: 1px 5px;
   }
 
-  .music-toggle-btn {
-    height: 40px;
-    padding: 0 10px;
-  }
-
   /* Expanded Dynamic Island on small screens */
   .dynamic-island-shell:hover,
   .dynamic-island-shell:focus-within,
   .dynamic-island-shell.expanded {
-    width: calc(100vw - 72px);
+    width: calc(100vw - 20px);
     height: 48px;
     padding: 0 10px;
   }
@@ -2051,10 +2134,14 @@ body {
     height: 12px;
   }
 
+  /* Video frame matches video aspect ratio with zero cropping */
   .logo-video-space {
     width: 100%;
-    max-width: 290px;
-    height: 165px;
+    max-width: min(320px, 92vw);
+    height: auto;
+    aspect-ratio: var(--video-aspect-ratio, 16 / 9);
+    margin: 0 auto;
+    background: #0b0f19;
   }
 
   /* Hero Section */
@@ -2253,8 +2340,22 @@ body {
 
 /* 5. Extra Narrow Screens (<= 360px) */
 @media (max-width: 360px) {
+  .island-music-widget {
+    left: 8px;
+  }
+
+  .music-toggle-btn {
+    width: 34px;
+    height: 34px;
+  }
+
   .dynamic-island-shell {
-    width: 160px;
+    width: 155px;
+    margin: 0 auto;
+  }
+
+  .logo-video-space {
+    max-width: 280px;
   }
 
   .taskbar-item {

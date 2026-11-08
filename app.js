@@ -55,12 +55,36 @@ function initDynamicIsland() {
 function initVideoPlayer() {
   const video = document.getElementById('userLogoAnimation');
   const btnFullscreen = document.getElementById('btnVideoFullscreen');
+  const videoSpace = document.getElementById('logoVideoSpace');
 
   if (!video) return;
 
   // Ensure video is muted by default as requested
   video.muted = true;
   video.defaultMuted = true;
+
+  // Synchronize video frame aspect ratio with natural video dimensions to prevent cropping
+  const syncVideoDimensions = () => {
+    if (video.videoWidth && video.videoHeight) {
+      const ratio = `${video.videoWidth} / ${video.videoHeight}`;
+      if (videoSpace) {
+        videoSpace.style.setProperty('--video-aspect-ratio', ratio);
+        if (window.innerWidth <= 1024) {
+          videoSpace.style.aspectRatio = ratio;
+        }
+      }
+    }
+  };
+
+  video.addEventListener('loadedmetadata', syncVideoDimensions);
+  video.addEventListener('loadeddata', syncVideoDimensions);
+  video.addEventListener('canplay', syncVideoDimensions);
+  video.addEventListener('playing', syncVideoDimensions);
+  window.addEventListener('resize', syncVideoDimensions);
+
+  if (video.readyState >= 1) {
+    syncVideoDimensions();
+  }
 
   // Trigger autoplay (browsers permit muted autoplay)
   video.play().catch(err => {
@@ -133,7 +157,9 @@ function initAmbientMusic() {
   // Set comfortable default volume
   audio.volume = 0.65;
 
-  musicBtn.addEventListener('click', () => {
+  musicBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (audio.paused) {
       audio.play().then(() => {
         musicBtn.classList.add('playing');
