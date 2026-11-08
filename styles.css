@@ -1963,10 +1963,11 @@ body {
     z-index: 1000;
   }
 
-  /* Ambient music button on the complete left side */
+  /* Ambient music button on the complete right side */
   .island-music-widget {
     position: absolute;
-    left: 14px;
+    right: 14px;
+    left: auto;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1002;
@@ -2069,9 +2070,10 @@ body {
     padding: 0 10px;
   }
 
-  /* Ambient music button on complete left side */
+  /* Ambient music button on complete right side */
   .island-music-widget {
-    left: 10px;
+    right: 10px;
+    left: auto;
   }
 
   .music-toggle-btn {
@@ -2341,7 +2343,8 @@ body {
 /* 5. Extra Narrow Screens (<= 360px) */
 @media (max-width: 360px) {
   .island-music-widget {
-    left: 8px;
+    right: 8px;
+    left: auto;
   }
 
   .music-toggle-btn {
